@@ -35,7 +35,7 @@ if df_top500 is not None:
     tab_dashboard, tab_busqueda, tab_quiz = st.tabs([
         "Dashboard Estadístico", 
         "Explorador (País/Género)", 
-        "Recomiendame Películas"
+        "Recomendador de Películas"
     ])
 
     # =========================================================================
@@ -115,7 +115,7 @@ if df_top500 is not None:
     # PESTAÑA 2: EXPLORADOR POR PAÍS Y GÉNERO
     # =========================================================================
     with tab_busqueda:
-        st.header("🔍 Buscador Manual")
+        st.header("Buscador Manual")
         
         subtab_pais, subtab_genero = st.tabs(["Por País", "Por Género"])
         
@@ -181,7 +181,7 @@ if df_top500 is not None:
     # PESTAÑA 3: QUIZ INTERACTIVO DE RECOMENDACIÓN
     # =========================================================================
     with tab_quiz:
-        st.header("🎯 Quiz de Recomendación Personalizada")
+        st.header("Cuestionario de Recomendación Personalizada")
         st.markdown("Responde a las siguientes preguntas para descubrir tus películas ideales basadas en nuestro algoritmo predictivo:")
 
         def cargar_y_limpiar_datos(df_source):
