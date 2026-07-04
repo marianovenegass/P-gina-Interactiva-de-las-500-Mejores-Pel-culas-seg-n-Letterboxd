@@ -14,7 +14,7 @@ st.set_page_config(
 )
 
 # Título Principal
-st.title("🎬 Sistema de Recomendación y Análisis del Top 500 de Películas")
+st.title("Sistema de Recomendación y Análisis del Top 500 de Películas")
 st.markdown("---")
 
 # 1. Carga de Datos optimizada con Cache
@@ -25,7 +25,7 @@ def load_data():
         df = pd.read_csv("top500.csv")
         return df
     except FileNotFoundError:
-        st.error("⚠️ No se encontró el archivo 'top500.csv' en la raíz del proyecto. Por favor asegúrate de subirlo junto a este script.")
+        st.error("No se encontró el archivo 'top500.csv' en la raíz del proyecto. Por favor asegúrate de subirlo junto a este script.")
         return None
 
 df_top500 = load_data()
@@ -33,9 +33,9 @@ df_top500 = load_data()
 if df_top500 is not None:
     # Crear pestañas para organizar el contenido limpiamente
     tab_dashboard, tab_busqueda, tab_quiz = st.tabs([
-        "📊 Dashboard Estadístico", 
-        "🔍 Explorador (País/Género)", 
-        "🎯 Quiz de Recomendación Inteligente"
+        "Dashboard Estadístico", 
+        "Explorador (País/Género)", 
+        "Recomiendame Películas"
     ])
 
     # =========================================================================
@@ -342,7 +342,7 @@ if df_top500 is not None:
                 dir_opt = st.text_input("9. ¿Hay algún director que te guste especialmente? (Opcional)", "")
                 n_recom = st.slider("10. ¿Cuántas recomendaciones deseas?", min_value=1, max_value=5, value=3, step=2)
 
-            submit_btn = st.form_submit_button("🔥 Generar Recomendaciones Perfectas")
+            submit_btn = st.form_submit_button("Generar Recomendaciones")
 
         # Mapeos de etiquetas a códigos originales
         map_dur = {"Menos de 90 minutos": "1", "90–120 minutos": "2", "120–150 minutos": "3", "Más de 150 minutos": "4", "Me da igual": "5"}
@@ -368,10 +368,10 @@ if df_top500 is not None:
             n_mostrar = min(len(resultados), respuestas_usuario['cantidad'])
 
             if n_mostrar == 0:
-                st.warning("⚠️ No se encontraron películas que coincidan exactamente con tus criterios de filtrado. ¡Prueba reduciendo las restricciones!")
+                st.warning("No se encontraron películas que coincidan exactamente con tus criterios de filtrado. ¡Prueba reduciendo las restricciones!")
             else:
                 st.balloons()
-                st.success(f"🍿 Basado en tus respuestas, estas son tus {n_mostrar} mejores recomendaciones:")
+                st.success(f"Basado en tus respuestas, estas son tus {n_mostrar} mejores recomendaciones:")
                 
                 for idx in range(n_mostrar):
                     peli = resultados.iloc[idx]
@@ -407,10 +407,10 @@ if df_top500 is not None:
                     movie_info_html += f"<div>"
                     movie_info_html += f"  <h3 style='margin:0; color:#1e1e1e;'>{peli['título']} ({int(peli['año'])})</h3>"
                     movie_info_html += f"  <p style='margin: 6px 0; color:#444;'><strong>Director(es):</strong> {directores_str}</p>"
-                    movie_info_html += f"  <p style='margin: 6px 0; color:#444;'><strong>Calificación Promedio:</strong> ⭐ {peli['rating de Letterboxd']}</p>"
-                    movie_info_html += f"  <p style='margin: 6px 0; color:#444;'><strong>Duración:</strong> ⏱️ {int(peli['duración (minutos)'])} minutos</p>"
-                    movie_info_html += f"  <p style='margin: 6px 0; color:#444;'><strong>País:</strong> 🌍 {peli['país o región']}</p>"
+                    movie_info_html += f"  <p style='margin: 6px 0; color:#444;'><strong>Calificación Promedio:</strong> {peli['rating de Letterboxd']}</p>"
+                    movie_info_html += f"  <p style='margin: 6px 0; color:#444;'><strong>Duración:</strong> {int(peli['duración (minutos)'])} minutos</p>"
+                    movie_info_html += f"  <p style='margin: 6px 0; color:#444;'><strong>País:</strong> {peli['país o región']}</p>"
                     movie_info_html += f"  <p style='margin: 6px 0; color:#444;'><strong>Géneros:</strong> {generos_str}</p>"
-                    movie_info_html += f"  <p style='margin: 10px 0 0 0; padding:8px; background-color:#e8f5e9; border-radius:5px; color:#1b5e20;'><strong>💡 Por qué te lo recomiendo:</strong> {por_que}</p>"
+                    movie_info_html += f"  <p style='margin: 10px 0 0 0; padding:8px; background-color:#e8f5e9; border-radius:5px; color:#1b5e20;'><strong> Por qué te lo recomiendo:</strong> {por_que}</p>"
                     movie_info_html += f"</div></div>"
                     st.markdown(movie_info_html, unsafe_allow_html=True)
