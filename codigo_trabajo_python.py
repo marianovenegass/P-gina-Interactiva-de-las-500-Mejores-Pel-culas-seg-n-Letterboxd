@@ -92,6 +92,22 @@ if df_top500 is not None:
             plt.tight_layout()
             st.pyplot(fig_gen)
 
+        # Gráfico de Barras de las 20 películas más vistas del Top 500 (Plotly)
+        top_20_movies = df_top500.sort_values(by='ratingsCount', ascending=False).head(20)
+        fig = px.bar(
+            top_20_movies,
+            x='title',
+            y='ratingsCount',
+            title='Top 20 Películas del Top 500 por Número de Personas que las Han Visto',
+            labels={'title': 'Título de la Película', 'ratingsCount': 'Número de personas que han visto la película'},
+            hover_name='title',
+            hover_data={'averageRating': True, 'ratingsCount': True, 'year': True, 'country': True}
+        )
+
+        fig.update_layout(xaxis_title='Título de la Película', yaxis_title='Número de personas que han visto la película')
+        fig.update_xaxes(tickangle=45)
+        fig.show()
+
         # Gráfico de Línea por Año (Plotly)
         st.subheader("Evolución Temporal")
         year_counts = df_top500['year'].value_counts().sort_index()
